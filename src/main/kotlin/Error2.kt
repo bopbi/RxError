@@ -7,11 +7,7 @@ fun main() {
 
     stringEmitter
             .flatMap {
-                Observable
-                        .defer {
-                            simpleFunction(it)
-                        }
-                        .onExceptionResumeNext(Observable.just("Owh"))
+                Observable.just(simpleFunction(it))
                         .onErrorResumeNext(Observable.just("Oops"))
             }.subscribe({
                 println("onNext $it")
@@ -26,9 +22,9 @@ fun main() {
     stringEmitter.onNext("Rx")
 }
 
-fun simpleFunction(value: String): Observable<String> {
+fun simpleFunction(value: String): String {
     if (value.length > 2) {
         throw IllegalArgumentException()
     }
-    return Observable.just(value)
+    return "through $value"
 }

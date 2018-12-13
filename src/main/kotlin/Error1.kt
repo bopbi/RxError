@@ -1,3 +1,4 @@
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 fun main() {
@@ -9,10 +10,11 @@ fun main() {
                 if (it.length > 2) {
                     throw IllegalArgumentException()
                 }
-                it
-            }.onErrorReturn {
-                "OOps"
-            }.subscribe({
+                it }
+//            .onErrorReturn { "OOps" }
+//            .onErrorResumeNext ( Observable.just("OOps") )
+//            .onErrorReturnItem("OOps")
+            .subscribe({
                 println("onNext $it")
             }, {
                 println("onError")
